@@ -1,11 +1,11 @@
 import { ErrorPage } from '@/pages/ErrorPage/ErrorPage'
 import { HomePage } from '@/pages/HomePage/HomePage'
 import App from '@/app/App'
-import { createBrowserRouter, RouterProvider } from 'react-router'
+import { createHashRouter, RouterProvider } from 'react-router'
 import { FavoritesPage } from '@/pages/FavoritesPage/FavoritesPage'
 import { CharacterDetailPage } from '@/pages/CharacterDetailPage/CharacterDetailPage'
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <App />,
