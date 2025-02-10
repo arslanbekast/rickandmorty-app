@@ -7,7 +7,7 @@ export const charactersApi = {
     return rickAndMortyApi.get<RickAndMortyApiResponse>('character', { params })
   },
   getMultipleCharacters(ids: number[]) {
-    return rickAndMortyApi.get<Character[]>(`character/${ids}`)
+    return rickAndMortyApi.get<Character[] | Character>(`character/${ids}`)
   },
   getCharacterById(id: number) {
     return rickAndMortyApi.get<Character>(`character/${id}`)

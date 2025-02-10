@@ -30,7 +30,7 @@ export const fetchCharacters = createAppAsyncThunk<
   }
 )
 
-export const fetchFavoriteCharacters = createAppAsyncThunk<Character[], number[]>(
+export const fetchFavoriteCharacters = createAppAsyncThunk<Character[] | Character, number[]>(
   'characters/fetchFavoriteCharacters',
   async (ids, { dispatch, rejectWithValue }) => {
     try {
@@ -116,12 +116,19 @@ const charactersSlice = createSlice({
           state.info = action.payload.info
         }
       )
-      .addCase(fetchFavoriteCharacters.fulfilled, (state, action: PayloadAction<Character[]>) => {
-        state.favoriteCharacters = action.payload.map(character => ({
-          ...character,
-          favorite: true,
-        }))
-      })
+      .addCase(
+        fetchFavoriteCharacters.fulfilled,
+        (state, action: PayloadAction<Character[] | Character>) => {
+          if (Array.isArray(action.payload)) {
+            state.favoriteCharacters = action.payload.map(character => ({
+              ...character,
+              favorite: true,
+            }))
+          } else {
+            state.favoriteCharacters = [{ ...action.payload, favorite: true }]
+          }
+        }
+      )
       .addCase(fetchCharacterById.fulfilled, (state, action: PayloadAction<Character>) => {
         state.selectedCharacter = { ...action.payload, favorite: false }
       })
